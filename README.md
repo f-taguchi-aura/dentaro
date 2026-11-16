@@ -1,56 +1,42 @@
-# Welcome to your Expo app 👋
+# Montaro
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+自分用の iPhone / Android アプリ。[Expo](https://expo.dev)（React Native + TypeScript）で1つのコードから両OS向けにビルドします。
 
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## 開発の始め方
 
 ```bash
-npm run reset-project
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+表示されたQRコードを、スマホの **Expo Go** アプリ（iPhone はカメラアプリ）で読み取ると実機で動作確認できます。
 
-### Other setup steps
+## よく使うコマンド
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+| コマンド | 内容 |
+| --- | --- |
+| `npx expo start` | 開発サーバー起動 |
+| `npm run typecheck` | 型チェック |
+| `npm run lint` | Lint |
+| `npx expo install <pkg>` | SDK対応バージョンでパッケージ追加 |
+| `npx expo-doctor` | 依存関係・設定の診断 |
 
-## Learn more
+## 構成
 
-To learn more about developing your project with Expo, look at the following resources:
+- `src/app/` … 画面（Expo Router のファイルベースルーティング）
+- `src/components/` `src/hooks/` `src/constants/` … 共通コード
+- `app.json` … アプリ名・アイコン・Bundle ID などの設定
+- `eas.json` … クラウドビルド（EAS Build）の設定
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 実機にインストールする（EAS Build）
 
-## Join the community
+Mac や Xcode がなくてもクラウドでビルドできます。
 
-Join our community of developers creating universal apps.
+```bash
+npx eas-cli@latest login
+npx eas-cli@latest build --profile preview --platform android   # APK を作成
+npx eas-cli@latest build --profile preview --platform ios       # Apple Developer 登録が必要
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Bundle ID / パッケージ名: `jp.montaro.app`（必要に応じて `app.json` で変更）
+- iPhone への配布には Apple Developer Program（有料）への登録が必要です。
