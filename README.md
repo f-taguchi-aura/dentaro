@@ -1,6 +1,6 @@
-# Montaro
+# でんたろー（dentaro）
 
-自分用の iPhone / Android アプリ。[Expo](https://expo.dev)（React Native + TypeScript）で1つのコードから両OS向けにビルドします。
+もんたろー（Montaro）制作の、自分用 iPhone / Android 電卓アプリ。通常電卓⇔2画面電卓の切り替えと、お得比較機能を持つ。[Expo](https://expo.dev)（React Native + TypeScript）で1つのコードから両OS向けにビルドします。
 
 ## 開発の始め方
 
@@ -38,5 +38,5 @@ npx eas-cli@latest build --profile preview --platform android   # APK を作成
 npx eas-cli@latest build --profile preview --platform ios       # Apple Developer 登録が必要
 ```
 
-- Bundle ID / パッケージ名: `jp.montaro.app`（必要に応じて `app.json` で変更）
+- Bundle ID / パッケージ名: `jp.montaro.dentaro`
 - iPhone への配布には Apple Developer Program（有料）への登録が必要です。
