@@ -1,4 +1,4 @@
-import Decimal from 'decimal.js';
+import { Decimal } from 'decimal.js';
 
 /** 入力途中の数値文字列に3桁カンマを付ける（小数部・末尾の "." はそのまま）。 */
 export function formatNumber(raw: string): string {
