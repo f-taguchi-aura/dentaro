@@ -50,3 +50,14 @@ test('saves after a 300ms debounce', async () => {
     jest.useRealTimers();
   }
 });
+
+test('functional updates applied in the same batch are not lost', async () => {
+  const { result } = await renderHook(() => usePersistentState('k', 0));
+  await waitFor(() => expect(result.current[2]).toBe(true));
+  await act(async () => {
+    result.current[1]((n) => n + 1);
+    result.current[1]((n) => n + 1);
+  });
+  expect(result.current[0]).toBe(2);
+  await waitFor(() => expect(AsyncStorage.setItem).toHaveBeenLastCalledWith('k', '2'));
+});

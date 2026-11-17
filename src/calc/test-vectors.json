@@ -345,5 +345,30 @@
     ],
     "expression": "5",
     "display": "5"
+  },
+  {
+    "name": "negative-result",
+    "keys": [
+      "2",
+      "−",
+      "5",
+      "="
+    ],
+    "expression": "2 − 5",
+    "display": "-3"
+  },
+  {
+    "name": "negative-backspace",
+    "keys": [
+      "2",
+      "−",
+      "5",
+      "=",
+      "+",
+      "⌫",
+      "⌫"
+    ],
+    "expression": "",
+    "display": "0"
   }
 ]

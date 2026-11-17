@@ -10,9 +10,11 @@ const SAVE_DELAY_MS = 300;
 export function usePersistentState<T>(
   key: string,
   initial: T,
-): [value: T, setValue: (next: T) => void, loaded: boolean] {
+): [value: T, setValue: (next: T | ((prev: T) => T)) => void, loaded: boolean] {
   const [value, setStateValue] = useState<T>(initial);
   const [loaded, setLoaded] = useState(false);
+  // 連続した更新が同じ古い値から計算されないよう、最新値を ref でも持つ
+  const latest = useRef<T>(initial);
   const pending = useRef<{ timer: ReturnType<typeof setTimeout>; json: string } | null>(null);
 
   useEffect(() => {
@@ -21,7 +23,9 @@ export function usePersistentState<T>(
       .then((json) => {
         if (cancelled || json === null) return;
         try {
-          setStateValue(JSON.parse(json) as T);
+          const restored = JSON.parse(json) as T;
+          latest.current = restored;
+          setStateValue(restored);
         } catch {
           // 壊れたデータは無視して初期値を使う
         }
@@ -48,10 +52,12 @@ export function usePersistentState<T>(
   );
 
   const setValue = useCallback(
-    (next: T) => {
-      setStateValue(next);
+    (next: T | ((prev: T) => T)) => {
+      const value = typeof next === 'function' ? (next as (prev: T) => T)(latest.current) : next;
+      latest.current = value;
+      setStateValue(value);
       if (pending.current) clearTimeout(pending.current.timer);
-      const json = JSON.stringify(next);
+      const json = JSON.stringify(value);
       const timer = setTimeout(() => {
         pending.current = null;
         AsyncStorage.setItem(key, json).catch(() => {});

@@ -94,8 +94,10 @@ export function press(state: CalcState, key: CalcKey): CalcState {
 
   if (key === '⌫') {
     if (!last) return state;
-    if (last.kind === 'num' && last.raw.length > 1) {
-      return fresh(withLast(tokens, { kind: 'num', raw: last.raw.slice(0, -1) }));
+    if (last.kind === 'num') {
+      const raw = last.raw.slice(0, -1);
+      // "-3" から1文字消して "-" だけが残る場合は数値ごと消す
+      if (raw !== '' && raw !== '-') return fresh(withLast(tokens, { kind: 'num', raw }));
     }
     return fresh(tokens.slice(0, -1));
   }

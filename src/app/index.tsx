@@ -22,7 +22,7 @@ export default function CalculatorScreen() {
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={[styles.fill, { backgroundColor: p.bg }]}>
       <View style={styles.header}>
-        <LayoutSwitch layout={state.layout} onChange={(l) => setState(setLayout(state, l))} />
+        <LayoutSwitch layout={state.layout} onChange={(l) => setState((s) => setLayout(s, l))} />
       </View>
       <View style={[styles.fill, { flexDirection: side ? 'row' : 'column' }]}>
         {panes.map((pane: PaneId, i) => (
@@ -34,7 +34,7 @@ export default function CalculatorScreen() {
             ]}>
             <CalculatorPane
               state={state[pane]}
-              onKey={(key: CalcKey) => setState(pressOn(state, pane, key))}
+              onKey={(key: CalcKey) => setState((s) => pressOn(s, pane, key))}
               active={state.active === pane}
               compact={dual}
             />
