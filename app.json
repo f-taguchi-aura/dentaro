@@ -3,7 +3,7 @@
     "name": "でんたろー",
     "slug": "dentaro",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "dentaro",
     "userInterfaceStyle": "automatic",
@@ -23,7 +23,7 @@
       "package": "jp.montaro.dentaro"
     },
     "web": {
-      "output": "server",
+      "output": "single",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
