@@ -40,6 +40,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "owner": "montaro-aura",
+    "extra": {
+      "eas": {
+        "projectId": "c1df5fe2-951a-4613-85be-b3725a5f2b31"
+      }
     }
   }
 }
