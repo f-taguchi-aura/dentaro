@@ -32,3 +32,18 @@ export function cheapestIds(items: PriceItem[]): string[] {
 export function formatUnitPrice(d: Decimal): string {
   return formatNumber(d.toFixed(2, Decimal.ROUND_HALF_UP));
 }
+
+/** 最安に比べて何 % 高いか（有効な行のみ。最安は 0）。 */
+export function premiumOverCheapest(items: PriceItem[]): Record<string, Decimal> {
+  const priced = items
+    .map((item) => ({ id: item.id, unit: unitPrice(item) }))
+    .filter((x): x is { id: string; unit: Decimal } => x.unit !== null);
+  if (priced.length === 0) return {};
+  const min = Decimal.min(...priced.map((x) => x.unit));
+  return Object.fromEntries(priced.map((x) => [x.id, x.unit.div(min).minus(1).times(100)]));
+}
+
+/** 小数1桁に丸め、".0" は省く。 */
+export function formatPremium(d: Decimal): string {
+  return formatNumber(d.toDecimalPlaces(1, Decimal.ROUND_HALF_UP).toString());
+}

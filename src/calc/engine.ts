@@ -129,3 +129,10 @@ export function displayText(state: CalcState): string {
   }
   return formatResult(result);
 }
+
+/** 右側の数値を待っている演算子（キーを点灯させる用）。なければ null。 */
+export function pendingOperator(state: CalcState): Operator | null {
+  if (state.evaluated || state.error) return null;
+  const last = state.tokens[state.tokens.length - 1];
+  return last?.kind === 'op' ? last.op : null;
+}
