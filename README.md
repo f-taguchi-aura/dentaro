@@ -16,6 +16,7 @@ npx expo start
 | コマンド | 内容 |
 | --- | --- |
 | `npx expo start` | 開発サーバー起動 |
+| `npm test` | テスト |
 | `npm run typecheck` | 型チェック |
 | `npm run lint` | Lint |
 | `npx expo install <pkg>` | SDK対応バージョンでパッケージ追加 |
@@ -23,8 +24,10 @@ npx expo start
 
 ## 構成
 
-- `src/app/` … 画面（Expo Router のファイルベースルーティング）
-- `src/components/` `src/hooks/` `src/constants/` … 共通コード
+- `src/app/` … 画面（Expo Router）。`index.tsx`＝電卓タブ、`compare.tsx`＝お得比較タブ
+- `src/calc/` … 電卓の計算ロジック。`test-vectors.json` は正解の一覧で、将来の iPhone ウィジェット（Swift）でも同じものを使って検証する
+- `src/unit-price/` … お得比較の計算
+- `src/components/` `src/theme/` `src/storage/` … 画面部品・配色・端末への保存
 - `app.json` … アプリ名・アイコン・Bundle ID などの設定
 - `eas.json` … クラウドビルド（EAS Build）の設定
 
